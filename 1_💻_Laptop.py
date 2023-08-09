@@ -5,19 +5,16 @@ import numpy as np
 st.set_page_config(
     page_title="Gadget-Price-Prediction",
     page_icon=":video_game:",
-    layout="wide",
+    layout="centered",
     initial_sidebar_state="expanded",
-    menu_items={
-        'Get Help': 'https://www.extremelycoolapp.com/help',
-        'Report a bug': "https://www.extremelycoolapp.com/bug",
-        'About': "# This is a header. This is an *extremely* cool app!"
-    }
 )
 
 pipe = pickle.load(open('pipe.pkl','rb'))
 df = pickle.load(open('df.pkl','rb'))
 
+st.sidebar.info("This is Laptop Price Pridiction Section Of App")
 st.title("Laptop Predictor")
+st.snow()
 
 # brand
 company = st.selectbox('Brand',df['Company'].unique())
@@ -74,3 +71,4 @@ if st.button('Predict Price'):
 
     query = query.reshape(1,12)
     st.title("The predicted price of this configuration is " + str(int(np.exp(pipe.predict(query)[0]))))
+    st.balloons()
