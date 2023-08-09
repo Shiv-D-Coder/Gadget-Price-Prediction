@@ -2,6 +2,18 @@ import streamlit as st
 import pickle
 import numpy as np
 
+st.set_page_config(
+    page_title="Gadget-Price-Prediction",
+    page_icon=":video_game:",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
+
 pipe = pickle.load(open('pipe.pkl','rb'))
 df = pickle.load(open('df.pkl','rb'))
 
