@@ -5,7 +5,7 @@ import numpy as np
 st.set_page_config(
     page_title="Gadget-Price-Prediction",
     page_icon=":video_game:",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="expanded",
 )
 
