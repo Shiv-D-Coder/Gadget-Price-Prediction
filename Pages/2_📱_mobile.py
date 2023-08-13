@@ -35,24 +35,23 @@ Rear_Camera = st.selectbox('Rear camera in MP', df_mob['Rear Camera'].unique())
 Front_Camera = st.number_input('Front Camera in MP')
 
 # Display
-Display = st.selectbox('Display', df_mob['Display'].unique())
+Display = st.number_input('Display in Inches')
 
 # Operating System
 Operating_System = st.selectbox(
     'Operating_System', df_mob['Operating System'].unique())
 
 # Fabrication
-Fabrication = st.number_input('Fabrication of Mobile (ex 8,6,12) int')
+Fabrication = st.selectbox('Fabrication of Mobile', df_mob['Fabrication'].unique())
 
 # Graphics
 Graphics = st.selectbox('Graphics of Mobile', df_mob['Graphics'].unique())
 
 # Display Type
-Display_Type = st.selectbox(
-    'Display of Mobile', df_mob['Display Type'].unique())
+Display_Type = st.selectbox('Display of Mobile', df_mob['Display Type'].unique())
 
 # Pixel Density
-Pixel_Density = st.number_input('Pixel_Density of Mobile')
+Pixel_Density = st.number_input('Pixel_Density of Mobile(PPI)')
 
 # Refresh Rate
 Refresh_Rate = st.selectbox(
@@ -76,6 +75,7 @@ Expandable_Memory = st.selectbox(
 Audio_Jack = st.selectbox('Does it have Audio Jack', ['Yes', 'No'])
 
 # PREDICT button
+st.session_state["see_config"] = False
 if st.button("Predict Price"):
     Quick_Charging = 1 if Quick_Charging == 'Yes' else 0
     Usb_Type_C     = 1 if Usb_Type_C == 'Yes' else 0
@@ -88,10 +88,16 @@ if st.button("Predict Price"):
                       Brand])
     
     query = query.reshape(1, 18)
-    
-    st.write(query)
-
+ 
     # Predict the price
-    Predicted_price = mob.predict(query)[0]
-    st.title(Predicted_price)
-    # st.balloons()
+    Predicted_price = int(np.exp(mob.predict(query)[0]))
+    st.title(f'The predicted price of this configuration is: {Predicted_price}💸 ')
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    if st.session_state["see_config"]:
+        st.write(query)
+
+    st.session_state["see_config"] = False
+    st.balloons()
+
+# Initialize the session state
+st.session_state["see_config"] = False
