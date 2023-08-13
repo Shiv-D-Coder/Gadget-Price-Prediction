@@ -1,6 +1,9 @@
 import streamlit as st
+from streamlit_lottie import st_lottie
+import json
 import pickle
 import numpy as np
+import time
 
 st.set_page_config(
     page_title="Mobile-Price-Prediction",
@@ -74,6 +77,14 @@ Expandable_Memory = st.selectbox(
 # Audio Jack
 Audio_Jack = st.selectbox('Does it have Audio Jack', ['Yes', 'No'])
 
+
+# LOTTY file
+def load_lottyFile(filename: str):
+    with open (filename, 'r') as f:
+        return json.load(f)
+
+lotty_animation = load_lottyFile('Pages/lotty.json')
+
 # PREDICT button
 if st.button("Predict Price"):
     Quick_Charging = 1 if Quick_Charging == 'Yes' else 0
@@ -90,6 +101,8 @@ if st.button("Predict Price"):
  
     # Predict the price
     Predicted_price = int(np.exp(mob.predict(query)[0]))
+    st_lottie(lotty_animation, key='shiv', loop=True, height=400, width=300)
+    time.sleep(2)
     st.title(f'The predicted price of this configuration is: {Predicted_price}💸 ')
     st.markdown("<br><br>", unsafe_allow_html=True)
     
