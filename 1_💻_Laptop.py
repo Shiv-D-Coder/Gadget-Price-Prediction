@@ -71,4 +71,6 @@ if st.button('Predict Price'):
 
     query = query.reshape(1,12)
     st.title("The predicted price of this configuration is " + str(int(np.exp(pipe.predict(query)[0]))))
+    with st.expander("Show Configuration"):
+        st.write(query)
     st.balloons()

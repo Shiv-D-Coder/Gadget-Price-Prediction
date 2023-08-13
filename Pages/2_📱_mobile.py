@@ -75,7 +75,6 @@ Expandable_Memory = st.selectbox(
 Audio_Jack = st.selectbox('Does it have Audio Jack', ['Yes', 'No'])
 
 # PREDICT button
-st.session_state["see_config"] = False
 if st.button("Predict Price"):
     Quick_Charging = 1 if Quick_Charging == 'Yes' else 0
     Usb_Type_C     = 1 if Usb_Type_C == 'Yes' else 0
@@ -93,11 +92,10 @@ if st.button("Predict Price"):
     Predicted_price = int(np.exp(mob.predict(query)[0]))
     st.title(f'The predicted price of this configuration is: {Predicted_price}💸 ')
     st.markdown("<br><br>", unsafe_allow_html=True)
-    if st.session_state["see_config"]:
+    
+    # Use an expander to show/hide the configuration details
+    with st.expander("Show Configuration"):
         st.write(query)
 
-    st.session_state["see_config"] = False
     st.balloons()
 
-# Initialize the session state
-st.session_state["see_config"] = False
