@@ -35,10 +35,10 @@ Battery = st.selectbox('Battery in MAh', df_mob['Battery'].unique())
 Rear_Camera = st.selectbox('Rear camera in MP', df_mob['Rear Camera'].unique())
 
 # Front Camera
-Front_Camera = st.number_input('Front Camera in MP')
+Front_Camera = st.number_input('Front Camera in MP', value=20)
 
 # Display
-Display = st.number_input('Display in Inches')
+Display = st.number_input('Display in Inches', value=6.5)
 
 # Operating System
 Operating_System = st.selectbox(
@@ -54,7 +54,7 @@ Graphics = st.selectbox('Graphics of Mobile', df_mob['Graphics'].unique())
 Display_Type = st.selectbox('Display of Mobile', df_mob['Display Type'].unique())
 
 # Pixel Density
-Pixel_Density = st.number_input('Pixel_Density of Mobile(PPI)')
+Pixel_Density = st.number_input('Pixel_Density of Mobile(PPI)', value=400)
 
 # Refresh Rate
 Refresh_Rate = st.selectbox(
@@ -101,7 +101,24 @@ if st.button("Predict Price"):
  
     # Predict the price
     Predicted_price = int(np.exp(mob.predict(query)[0]))
+    
+    # CSS for lotty file
+    centered_css = """
+    <style>
+    .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    </style>
+    """
+    st.markdown(centered_css, unsafe_allow_html=True)
+    
+    # Display the Lottie animation with the centered class
+    st.markdown('<div class="centered">', unsafe_allow_html=True)
     st_lottie(lotty_animation, key='shiv', loop=True, height=400, width=300)
+    st.markdown('</div>', unsafe_allow_html=True)
+
     time.sleep(2)
     st.title(f'The predicted price of this configuration is: {Predicted_price}💸 ')
     st.markdown("<br><br>", unsafe_allow_html=True)
