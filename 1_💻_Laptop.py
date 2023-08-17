@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_lottie import st_lottie
+# from streamlit_lottie import st_lottie
 import json
 import pickle
 import numpy as np
